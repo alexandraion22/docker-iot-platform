@@ -1,0 +1,22 @@
+version: "3.3"
+
+services:
+  broker:
+    image: eclipse-mosquitto:latest
+    ports:
+      - 1883:1883
+    volumes:
+      - ./mosquitto/mosquitto.conf:/mosquitto/config/mosquitto.conf
+    networks:
+      - broker_adapter_network
+
+  adapter:
+    depends_on:
+      - broker
+    build: ./src
+    image: adapter
+    networks:
+      - broker_adapter_network
+
+networks:
+  broker_adapter_network:
