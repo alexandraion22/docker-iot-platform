@@ -8,10 +8,10 @@
 
 ## Tehnologiile utilizate
 
-- Interfata pentru vizualizarea datelor - Grafana
-- Baza de date - InfluxDB
-- Adaptor - Python
-- Broker de mesaje - MQTT Broker (imaginea eclipse-mosquitto)
+- Interfata pentru vizualizarea datelor - `Grafana`
+- Baza de date - `InfluxDB`
+- Adaptor - `Python`
+- Broker de mesaje - `MQTT Broker` (imaginea eclipse-mosquitto)
 
 
 ## Rularea temei
@@ -24,6 +24,9 @@ Pentru a putea porni tema este necesara doar rularea comenzii:
 
 Aceasta va rula comanda de build a adaptorului `docker-compose -f stack.yml build`
 si va porni stack-ul prin comanda `docker stack deploy -c stack.yml sprc3`.
+
+
+### Oprire stack
 
 Pentru a opri stack-ul, se poate rula:
 
@@ -76,12 +79,12 @@ doilea volum, care poate fi sters oricand, dar partea de provisioning se poate m
 - Portul 1883 - MQTT - accesibil prin 0.0.0.0:1883
 
 
-## Impartire networks
+## Impartire Networks
 
 Am impartit seviciile in trei retele diferite, conform cerintei:
 - `broker_adapter_network` (MQTT Broker si Python Adapter)
 - `adapter_influxdb_network` (Python Adapter si InfluxDB)
-- `influxdb_grafana_network`(InfluxDb si Grafana)
+- `influxdb_grafana_network` (InfluxDb si Grafana)
 
 
 ## Feedback Tema
