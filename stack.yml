@@ -13,10 +13,41 @@ services:
   adapter:
     depends_on:
       - broker
+      - influxdb
     build: ./src
     image: adapter
+    env_file: envs/adapter.env
     networks:
       - broker_adapter_network
+      - adapter_influxdb_network
+
+  influxdb:
+    image: influxdb:1.8
+    volumes:
+      - ./influxdb/init-db.sh:/docker-entrypoint-initdb.d/init-db.sh
+      - influxdb_data:/var/lib/influxdb
+    networks:
+      - adapter_influxdb_network
+      - influxdb_grafana_network   
+      
+  grafana:
+    image: grafana/grafana:latest
+    depends_on:
+      - influxdb
+    ports:
+      - '80:3000'
+    volumes:
+      - ./grafana/:/etc/grafana/provisioning
+      - grafana_data:/var/lib/grafana
+    env_file: envs/grafana.env
+    networks:
+      - influxdb_grafana_network
 
 networks:
   broker_adapter_network:
+  adapter_influxdb_network:
+  influxdb_grafana_network:
+
+volumes:
+  influxdb_data:
+  grafana_data:
