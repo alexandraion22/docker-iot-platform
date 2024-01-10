@@ -1,7 +1,7 @@
+from datetime import datetime, timezone, timedelta
 import paho.mqtt.client as mqtt
 import random
 import json
-from datetime import datetime, timezone
 import time
 
 def _on_connect(client, userdata, flags, rc):
@@ -12,11 +12,9 @@ def _create_client():
 	client = mqtt.Client()
 	client.on_connect = _on_connect
 
-	#Adresa IP obtinuta din docker node inspect self
-	client.connect("10.0.2.15")
+	client.connect("0.0.0.0")
 	client.loop_start()
 
-	print("Client connected")
 	return client
 
 def close_client(client):
@@ -29,23 +27,25 @@ def main():
 
 	random.seed(datetime.now)
 
+	# Loop infinit - trimite o serie de mesaje la cate un minut
 	while (True):
-		topic = "UPB/RPi_"+str(random.randint(0,10))
-		# Trimitere 10 mesaje pe topic "UPB/RPi_(num)"
-		for _ in range(0,10):
-			payload = {
-				"BAT": round(random.uniform(0,100),2),
-				"HUMID": round(random.uniform(0,50),2),
-				"PRJ": "SPRC",
-				"TMP": round(random.uniform(0,40),2),
-				"status": "OK",
-				"timestamp": (datetime.now(timezone.utc)).strftime('%Y-%m-%dT%H:%M:%S%z')
-			}
-			# Convert the payload to JSON format
-			json_payload = json.dumps(payload)
-			# Publish the payload
-			mqtt_client.publish(topic, json_payload)
-			print(f"Client sent {payload} on topic {topic}")
+		topics = ["UPB/RPi_"+str(random.randint(0,10)), "Sensors/Mongo", "Example/Gas"]
+		# Trimitere cate 10 mesaje pe topicurile "UPB/RPi_(num)", "Alexandra/Mongo", "Example/Gas"
+		for topic in topics:
+			for i in range(0,50):
+				payload = {
+					"BAT": round(random.uniform(0,100),2),
+					"HUMID": round(random.uniform(0,50),2),
+					"PRJ": "SPRC",
+					"TMP": round(random.uniform(0,40),2),
+					"status": "OK",
+					"timestamp": (datetime.now(timezone.utc) -timedelta(minutes=i*20)).strftime('%Y-%m-%dT%H:%M:%S%z')
+				}
+				# Convert the payload to JSON format
+				json_payload = json.dumps(payload)
+				# Publish the payload
+				mqtt_client.publish(topic, json_payload)
+				print(f"Client sent {payload} on topic {topic}")
 
 
 		topic = "Dorinel/"+ random.choice(["Zeus","Poseidon","Hades","Athena","Artemis"])
@@ -62,10 +62,7 @@ def main():
 			mqtt_client.publish(topic, json_payload)
 			print(f"Client sent {payload} on topic {topic}")
 
-		time.sleep(10)
-
-	# Nu ajunge niciodata la linia asta	
-	close_client(mqtt_client)
+		time.sleep(60)
 
 
 if __name__ == '__main__':

@@ -16,12 +16,13 @@ def __is_float(str):
 	
 def _on_message(client, influxDbClient, message):
 
-	# Check if the topic matches the pattern (anything/anything)
+	# Verificare daca topic-ul este corect (locatie/statie)
 	if re.match(r'^.+/.+$', message.topic) == False:
 		return
 
 	log.info(f"Received a message by topic [{message.topic}]")
 	
+	# Obtinere denumire locatie si statie
 	source_split = message.topic.split('/')
 	location = source_split[0]
 	station = source_split[1]
@@ -56,7 +57,7 @@ def _on_message(client, influxDbClient, message):
 		})
 
 	
-	# Trimitere date in InfluxDB
+	# Trimitere date in InfluxDB (daca avem ce)
 	if json_body:
 		influxDbClient.write_points(json_body)
 
@@ -74,6 +75,7 @@ def main():
 	influxDbClient =  InfluxDBClient('sprc3_influxdb')
 	influxDbClient.switch_database('iot')
 
+	# Initiere client MQTT
 	mqtt_cl = mqtt.Client(userdata=influxDbClient)
 	mqtt_cl.on_message = _on_message
 	mqtt_cl.connect('sprc3_broker')

@@ -14,9 +14,9 @@ services:
     depends_on:
       - broker
       - influxdb
-    build: ./src
+    build: ./adapter
     image: adapter
-    env_file: envs/adapter.env
+    env_file: env/adapter.env
     networks:
       - broker_adapter_network
       - adapter_influxdb_network
@@ -37,9 +37,9 @@ services:
     ports:
       - '80:3000'
     volumes:
-      - ./grafana/:/etc/grafana/provisioning
+      - ./grafana:/etc/grafana/provisioning
       - grafana_data:/var/lib/grafana
-    env_file: envs/grafana.env
+    env_file: env/grafana.env
     networks:
       - influxdb_grafana_network
 
