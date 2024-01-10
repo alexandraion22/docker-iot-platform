@@ -1,4 +1,4 @@
-# Tema 2 SPRC - Microservicii & Docker
+# Tema # SPRC - Platforma IoT folosind Microservicii
 
 ## Realizarea temei
 
