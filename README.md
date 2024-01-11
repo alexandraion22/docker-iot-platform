@@ -25,6 +25,7 @@ Pentru a putea porni tema este necesara doar rularea comenzii:
 Aceasta va rula comanda de build a adaptorului `docker-compose -f stack.yml build`
 si va porni stack-ul prin comanda `docker stack deploy -c stack.yml sprc3`.
 
+Nu am utilizat variabila SPRC_DVP deoarece nu a fost necesara pentru implementarea mea.
 
 ### Oprire stack
 

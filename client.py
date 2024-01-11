@@ -29,8 +29,8 @@ def main():
 
 	# Loop infinit - trimite o serie de mesaje la cate un minut
 	while (True):
-		topics = ["UPB/RPi_"+str(random.randint(0,10)), "Sensors/Mongo", "Example/Gas"]
-		# Trimitere cate 10 mesaje pe topicurile "UPB/RPi_(num)", "Alexandra/Mongo", "Example/Gas"
+		topics = ["UPB/RPi_"+str(random.randint(0,10)), "Sensors/Mongo", "Example/Gas", "Wrong"]
+		# Trimitere cate 10 mesaje pe topicurile "UPB/RPi_(num)", "Alexandra/Mongo", "Example/Gas", "Wrong" - arbitrul va ignora mesajele de la ultimul topic
 		for topic in topics:
 			for i in range(0,50):
 				payload = {

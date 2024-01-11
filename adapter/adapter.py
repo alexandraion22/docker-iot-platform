@@ -17,7 +17,7 @@ def __is_float(str):
 def _on_message(client, influxDbClient, message):
 
 	# Verificare daca topic-ul este corect (locatie/statie)
-	if re.match(r'^.+/.+$', message.topic) == False:
+	if not re.match(r'^[^/]+/[^/]+$', message.topic):
 		return
 
 	log.info(f"Received a message by topic [{message.topic}]")
