@@ -87,15 +87,6 @@ Am impartit seviciile in trei retele diferite, conform cerintei:
 - `adapter_influxdb_network` (Python Adapter si InfluxDB)
 - `influxdb_grafana_network` (InfluxDb si Grafana)
 
-
-## Feedback Tema
-
-Tema a fost chiar foarte interesanta (cel mai mult cred ca mi-a placut partea de adrese IP private si adresarea
-serviciilor direct dupa nume, a fost foarte interesant). De asemenea mi-a placut si partea de logging +
-reprezentaare in Grafana (chiar daca cea din urma a fost cea mai time-consuming, dat fiind faptul ca nu am
-gasit o documentatie care sa ma ajute prea mult).
-
-
 ## Referinte
 
 - [InfluxDB - Sursa Imagine oficiala - De ce am folosit 1.8](https://github.com/influxdata/influxdata-docker/blob/43ef33abc06dd88c28c44ae2cd1850cd0aaed9d1/influxdb/1.8/init-influxdb.sh)
