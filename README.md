@@ -1,4 +1,4 @@
-# Tema # SPRC - Platforma IoT folosind Microservicii
+# Tema 3 SPRC - Platforma IoT folosind Microservicii
 
 ## Realizarea temei
 
